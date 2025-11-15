@@ -1,4 +1,4 @@
-export interface prophecies {
+export interface Prophecy {
     id: string;
     message: string;
 }
