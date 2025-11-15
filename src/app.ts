@@ -13,6 +13,10 @@ export default app;
 
 app.use(morgan("combined"));
 
+// https://expressjs.com/en/starter/static-files.html
+app.use(express.static('public'))
+
+
 app.get("/api/v1/health", (req, res) => {
     res.json({
         status: "OK",
