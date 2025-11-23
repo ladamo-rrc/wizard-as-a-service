@@ -2,6 +2,14 @@ import { Request, Response, NextFunction} from "express";
 import { HTTP_STATUS } from "../../../constants/httpConstants";
 import * as wizardService from "../services/wizardsService";
 import type { Wizards } from "../models/wizardsModel";
+import { successResponse } from "../models/responseModel";
+
+/**
+ * Retrieves all employees
+ * @param req - Express request object
+ * @param res - Express response object
+ * @param next - Express next function
+ */
 
 export const getAllWizards = async (
   _req: Request,
@@ -9,15 +17,22 @@ export const getAllWizards = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const employees: Wizards[] = await wizardService.getAllWizards();
-    res.status(HTTP_STATUS.OK).json({
-      message: "Employees retrieved successfully",
-      data: employees,
-    });
+    const wizards: Wizards[] = await wizardService.getAllWizards();
+    res.status(HTTP_STATUS.OK).json(
+      successResponse(wizards, "wizards retrieved successfully")
+    );
   } catch (error) {
     next(error);
   }
 }
+
+
+/**
+ * Retrieves a single wizard by ID
+ * @param req - Express request object
+ * @param res - Express response object
+ * @param next - Express next function
+ */
 
 export const getWizardById = async (
   req: Request,
@@ -25,19 +40,12 @@ export const getWizardById = async (
   next: NextFunction,
 ): Promise<void> => {
   try {
-      const id  = req.params.id;
-      if (!req.params.id || isNaN(Number(req.params.id))) {
-      res.status(HTTP_STATUS.BAD_REQUEST).json({
-        message: "please enter a valid ID"
-      });
-      return;
-    }
-    // getting request and extracting Id, then putting it into service so it can run 
-    const wizards = await wizardService.getWizardById(id);
-    res.status(HTTP_STATUS.OK).json({
-      message: "Employee retrieved by ID successfully",
-      data: wizards,
-    });
+    const { id } = req.params;
+    
+    const wizard: Wizards = await wizardService.getWizardById(id);
+    res.status(HTTP_STATUS.OK).json(
+      successResponse(wizard, "Wizard retrieved successfully")
+    );
   } catch(error) {
     next(error);
   }
