@@ -38,7 +38,7 @@ router.put("/:id", authenticate,
 router.delete("/:id", authenticate,
     isAuthorized({hasRole: ["manager"] }),
     validateRequest(prophecySchema.delete),
-    propheciesController.updateProphecy
+    propheciesController.deleteProphecy
 );
 
 

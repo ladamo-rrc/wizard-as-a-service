@@ -1,7 +1,7 @@
 import { db } from "../../../../config/firebaseConfig";
 import { FirestoreDataTypes } from "../types/firestore";
 
-export interface FieldValuePair {
+interface FieldValuePair {
     fieldName: string;
     fieldValue: FirestoreDataTypes;
 }
