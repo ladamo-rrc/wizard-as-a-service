@@ -1,5 +1,6 @@
 import express, { Express } from "express";
 import morgan from "morgan";
+import wizardRoutes from "../src/api/v1/routes/wizardRoutes"
 
 // Initialize Express application
 const app: Express = express();
@@ -16,6 +17,7 @@ app.use(morgan("combined"));
 // https://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'))
 
+app.use("/api/v1/wizards", wizardRoutes)
 
 app.get("/api/v1/health", (req, res) => {
     res.json({
