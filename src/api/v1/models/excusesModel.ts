@@ -1,4 +1,4 @@
-export interface excuses {
+export interface Excuses {
     id: string,
     message: string
 }
