@@ -91,37 +91,103 @@ export const wizardsArray: Wizards[] = [
     {
         id: "wizard4",
         name: "Patch",
-        domain: "???",
-        description: ``,
-        positiveResponses:[],
-        negativeResponses:[],
+        domain: "Chaos Domain",
+        description: `Patch backstory work in progress`,
+        positiveResponses:[
+            "Well well, looks like luck's on your side... or is it? No, it is. Probably.",
+        ],
+        negativeResponses:[
+            "Oof, that's... chaotic in the bad way.",
+        ],
         imageUrl: "path/here"
     },
-    {
+    {  
         id: "wizard5",
         name: "Arthur",
-        domain: "???",
+        domain: "work in progress",
         description: ``,
-        positiveResponses:[],
-        negativeResponses:[],
+        positiveResponses:[
+            "You've got grit. The stars see it too."
+        ],
+        negativeResponses:[
+            "I've seen better fortunes, I'll be honest with you.",
+            "Life's got a way of testing us. Brace yourself."
+        ],
         imageUrl: "path/here"
     },
     {
         id: "wizard6",
         name: "Ooloh",
-        domain: "???",
+        domain: "Battle Mage",
         description: ``,
-        positiveResponses:[],
-        negativeResponses:[],
+        positiveResponses:[
+            "Victory favors the prepared. You are prepared.",
+            "Stand tall. Your future holds triumph."
+        ],
+        negativeResponses:[
+            "Defeat is temporary. Learn from what's coming."
+        ],
         imageUrl: "path/here"
     },
-    {
+    { 
         id: "wizard7",
-        name: "Nul",
-        domain: "???",
-        description: ``,
-        positiveResponses:[],
-        negativeResponses:[],
+        name: "Claudio",
+        domain: "Cosmic Magic",
+        description: `wip`,
+        positiveResponses:[
+            "PHENOMENAL news! The universe is granting wishes today!",
+            "Ten thousand years of cosmic wisdom says: you're golden!"
+        ],
+        negativeResponses:[
+            "Infinite cosmic power says... maybe sit this one out, chief."
+        ],
+        imageUrl: "path/here"
+    },
+
+    {   // graves hates his type of magic 
+        id: "wizard8",
+        name: "Graves",
+        domain: "necromancy",
+        description: `wip`,
+        positiveResponses:[
+           "Wonderful prophecy! The dead are celebrating for you. Wish they'd do it quietly and with less decay.",
+           "Congratulations, your future looks bright! Unlike this zombie I just raised. Ugh, go back, go back!"
+        ],
+        negativeResponses:[
+            "Bad news. Also this corpse won't stop following me. Today is THE WORST.",
+            "Not great news, and this skeleton just touched me. I need a bath."
+        ],
+        imageUrl: "path/here"
+    },
+
+    {   
+        id: "wizard9",
+        name: "Aldric",
+        domain: "Singularity Magic",
+        description: `wip`,
+        positiveResponses:[
+           "The prophecy is favorable. As it should be.",
+           "The path ahead is clear. Walk it with purpose."
+        ],
+        negativeResponses:[
+            "The weight of fate presses heavily upon you.",
+            "I see collapse in your future. Brace yourself."
+        ],
+        imageUrl: "path/here"
+    },
+
+    {   
+        id: "wizard10",
+        name: "Ilaria",
+        domain: "The Moon/Dark Magic",
+        description: `wip`,
+        positiveResponses:[
+           "What a beautiful destiny unfolds before you",
+           "Oh, how the cosmos smiles upon you!"
+        ],
+        negativeResponses:[
+            "I wish I bore better news. But alas, this too shall pass."
+        ],
         imageUrl: "path/here"
     },
 ]

@@ -1,10 +1,10 @@
-import * as employeeService from "../src/api/v1/services/wizardsService";
+import * as wizardService from "../src/api/v1/services/wizardsService";
 import * as firestoreRepository from "../src/api/v1/repositories/firestoreRepositories";
 
 // Mock the repository module
 jest.mock("../src/api/v1/repositories/firestoreRepositories");
 
-describe("Employee Service", () => {
+describe("Wizard Service", () => {
     beforeEach(() => {
         jest.clearAllMocks();
     });
@@ -62,7 +62,7 @@ describe("Employee Service", () => {
         (firestoreRepository.getDocuments as jest.Mock).mockResolvedValue(mockSnapshot);
 
         // Act
-        const result = await employeeService.getAllWizards();
+        const result = await wizardService.getAllWizards();
 
         //Assert
         expect(firestoreRepository.getDocuments).toHaveBeenCalled();

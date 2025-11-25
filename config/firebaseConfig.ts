@@ -1,8 +1,6 @@
 import { initializeApp, cert, ServiceAccount } from "firebase-admin/app";
 import { getAuth, Auth } from "firebase-admin/auth";
 import { getFirestore, Firestore } from "firebase-admin/firestore";
-import { FieldValuePair } from "../src/api/v1/repositories/firestoreRepositories"
-
 import * as serviceAccount from "../wizard-as-a-service-firebase-adminsdk-fbsvc-e199859a46.json";
 
 // Initialize the Firebase app with the service account credentials

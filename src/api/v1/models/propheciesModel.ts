@@ -1,6 +1,6 @@
 export interface Prophecy {
     id: string;
     message: string;
-    type: "positive" | "negative" | "neutral";
+    type: string;
     luckyNumbers?: number[];
 }

@@ -66,7 +66,7 @@ export const getProphecyById = async (id: string): Promise<Prophecy> => {
 export const createProphecy = async (prophecyData: {
     id: string;
     message: string;
-    type: "positive" | "negative" | "neutral";
+    type: string;
 }): Promise<Prophecy> => {
     try {
         const newProphecyData = {

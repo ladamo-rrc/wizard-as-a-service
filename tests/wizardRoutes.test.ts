@@ -1,13 +1,21 @@
+import type { Request, Response, NextFunction } from "express";
+
 jest.mock("../src/api/v1/controllers/wizardsController", () => ({
     getAllWizards: jest.fn((_req, res) => res.status(200).send()),
     getWizardById: jest.fn((_req, res) => res.status(200).send()),
 }));
 
+jest.mock("../src/api/v1/middleware/authenticate", () =>
+    jest.fn((req: Request, res: Response, next: NextFunction) => next())
+);
+
+jest.mock("../src/api/v1/middleware/authorize", () =>
+    jest.fn(() => (req: Request, res: Response, next: NextFunction) => next())
+);
+
 import request from "supertest";
 import app from "../src/app"; 
 import * as controller from "../src/api/v1/controllers/wizardsController";
-
-
 
 describe("Wizard Routes", () => {
 	afterEach(() => {
