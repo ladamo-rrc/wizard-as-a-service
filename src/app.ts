@@ -1,6 +1,13 @@
 import express, { Express } from "express";
 import morgan from "morgan";
+import cors from "cors";
+import dotenv from "dotenv";
+// Load environment variables BEFORE your internal imports!
+dotenv.config();
+
 import wizardRoutes from "../src/api/v1/routes/wizardRoutes"
+import setupSwagger from "../config/swagger";
+import { getHelmetConfig } from "../config/helmetConfig";
 
 // Initialize Express application
 const app: Express = express();
@@ -12,8 +19,11 @@ app.get("/", (req, res) => {
 
 export default app;
 
+app.use(getHelmetConfig());
+
 app.use(morgan("combined"));
 
+app.use(cors());
 // https://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'))
 
@@ -26,4 +36,5 @@ app.get("/api/v1/health", (req, res) => {
         timestamp: new Date().toISOString(),
         version: "1.0.0",
     });
+    setupSwagger(app);
 });
