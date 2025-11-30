@@ -9,7 +9,7 @@ export const prophecySchema = {
                 "any.required": "message is required",
                 "string.empty": "message cannot be empty",
             }),
-            type: Joi.string().valid("positive, negative, neutral").required().messages({
+            type: Joi.string().valid("positive", "negative", "neutral").required().messages({
                 "any.required": "type is required",
                 "string.empty": "message cannot be empty",
             }),
@@ -48,7 +48,7 @@ export const prophecySchema = {
                 "any.required": "message is required",
                 "string.empty": "message cannot be empty",
             }),
-            type: Joi.string().valid("positive, negative, neutral").optional().messages({
+            type: Joi.string().valid("positive", "negative", "neutral").optional().messages({
                 "any.required": "type is required",
                 "string.empty": "type cannot be empty",
             }),
