@@ -74,7 +74,35 @@ describe("Prophecy Service", () => {
 
         });
 
-      
+        // it("should update a prophecy successfully", async () => {
+        // // Arrange
+        // const mockProphecyData = {
+        //     id: "prophecy1",
+        //     message: "this is a prophecy ooooOOOooo",
+        //     type: "neutral",
+        // };
+
+        // const mockDocumentId = "prophecy1";
+
+        // (firestoreRepository.updateDocument as jest.Mock).mockResolvedValue(
+        //     mockDocumentId
+        // );
+
+        //  // Act
+        // const result = await propheciesService.createProphecy(mockProphecyData)
+        
+
+        // //Assert
+        // expect(firestoreRepository.createDocument).toHaveBeenCalledWith(
+        //     "prophecies",
+        //     mockProphecyData,
+        //     mockProphecyData.id
+        // );
+
+        // expect(result).toEqual(mockProphecyData);
+
+        // });
+
 
 
 });
