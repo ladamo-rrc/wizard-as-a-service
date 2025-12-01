@@ -13,6 +13,7 @@ import {
 import errorHandler from "./api/v1/middleware/errorHandler";
 
 import wizardRoutes from "../src/api/v1/routes/wizardRoutes"
+import excusesRoutes from "../src/api/v1/routes/excusesRoutes" 
 import propheciesRoutes from "../src/api/v1/routes/propheciesRoutes" 
 import setupSwagger from "../config/swagger";
 import { getHelmetConfig } from "../config/helmetConfig";
@@ -21,6 +22,7 @@ import adminRoutes from "./api/v1/routes/adminRoutes";
 
 // Initialize Express application
 const app: Express = express();
+setupSwagger(app);
 
 // Logging middleware (should be applied early in the middleware stack)
 if (process.env.NODE_ENV === "production") {
@@ -32,27 +34,25 @@ if (process.env.NODE_ENV === "production") {
     app.use(consoleLogger);
 }
 
-// Define a route
-app.get("/", (req, res) => {
-    res.send("Hello, World!");
-});
-
-export default app;
-
 app.use(getHelmetConfig());
 
 app.use(morgan("combined"));
 app.use(express.json());
-app.use(errorHandler);
 app.use(cors());
 
 // https://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'))
 
+// Define a route
+app.get("/", (req, res) => {
+    res.send("Hello, World!");
+});
+
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/admin", adminRoutes);
-app.use("/api/v1/wizards", wizardRoutes)
-app.use("/api/v1/prophecies", propheciesRoutes)
+app.use("/api/v1/wizards", wizardRoutes);
+app.use("/api/v1/prophecies", propheciesRoutes);
+app.use("/api/v1/excuses", excusesRoutes);
 
 app.get("/api/v1/health", (req, res) => {
     res.json({
@@ -61,5 +61,8 @@ app.get("/api/v1/health", (req, res) => {
         timestamp: new Date().toISOString(),
         version: "1.0.0",
     });
-    setupSwagger(app);
 });
+
+app.use(errorHandler);
+
+export default app;
