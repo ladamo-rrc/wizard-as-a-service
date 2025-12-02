@@ -4,6 +4,9 @@ import * as propheciesService from "../services/propheciesService";
 import type { Prophecy } from "../models/propheciesModel";
 import { successResponse } from "../models/responseModel";
 import { prophecies } from "../../../data/prophecies";
+import { 
+        getProphecyFromWizard 
+} from "../services/propheciesService";
 
 /**
  * Retrieves all prophecies
@@ -12,21 +15,16 @@ import { prophecies } from "../../../data/prophecies";
  * @param next - Express next function
  */
 
-export const getAllProphecies = async (
-  _req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> => {
-  try {
-    const prophecies: Prophecy[] = await propheciesService.getAllProphecies();
-    res.status(HTTP_STATUS.OK).json(
-          successResponse(prophecies, "Prophecies retrieved successfully")
-        );
-  } catch (error) {
-    next(error);
-  }
-}
-
+export const getAllProphecies = async (req: Request, res: Response) => {
+    try {
+        const result = await getProphecyFromWizard();
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ 
+            error: error instanceof Error ? error.message : "Something went wrong" 
+        });
+    }
+};
 /**
  * Creates a new branch
  * @param req - Express request object
