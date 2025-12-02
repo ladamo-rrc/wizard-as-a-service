@@ -138,8 +138,8 @@ export const deleteExcuse = async (id: string): Promise<void> => {
 
 // gives a random number
 function getRandomInt(min: number, max: number): number {
-  min = Math.ceil(min); // Ensure min is an integer
-  max = Math.floor(max); // Ensure max is an integer
+  min = Math.ceil(min); 
+  max = Math.floor(max); 
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
