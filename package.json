@@ -8,16 +8,21 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "start": "ts-node src/server.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "generate-docs": "ts-node scripts/generate-openapi.ts && npx @redocly/cli build-docs openapi.json --output docs/index.html"
   },
   "keywords": [],
   "author": "lilly adamo",
   "license": "ISC",
   "devDependencies": {
+    "@redocly/cli": "^2.12.0",
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.5",
     "@types/jest": "^30.0.0",
     "@types/node": "^24.10.1",
     "@types/supertest": "^6.0.3",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
     "jest": "^30.2.0",
     "supertest": "^7.1.4",
     "ts-jest": "^29.4.5",
@@ -25,6 +30,15 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "express": "^5.1.0"
+    "@types/morgan": "^1.9.10",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "firebase-admin": "^13.6.0",
+    "helmet": "^8.1.0",
+    "joi": "^18.0.2",
+    "morgan": "^1.10.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   }
 }
