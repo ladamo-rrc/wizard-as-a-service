@@ -12,7 +12,7 @@ import {
     DocumentData,
 } from "firebase-admin/firestore";
 
-const COLLECTION = "employees";
+const COLLECTION = "excuses";
 
 /**
  * Retrieves all items from Firestore
@@ -134,3 +134,39 @@ export const deleteExcuse = async (id: string): Promise<void> => {
     }
 };
 
+// Randomizataion Logic 
+
+// gives a random number
+function getRandomInt(min: number, max: number): number {
+  min = Math.ceil(min); // Ensure min is an integer
+  max = Math.floor(max); // Ensure max is an integer
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// Random excuse
+
+export const conjureRandomExcuse = async () => {
+    try {
+        const getAllExcusesFromDB = await getDocuments("excuses");
+
+        if (getAllExcusesFromDB.empty) {
+            throw new Error ("There are no excuses left. Time to face the music!")
+        }
+
+        const excuse: Excuses[] = getAllExcusesFromDB.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        })) as Excuses[];
+
+        const getRandomExcuse = getRandomInt(0, excuse.length - 1 );
+        const randomExcuse = excuse[getRandomExcuse];
+    
+
+        return {
+            excuse: randomExcuse.message,
+        }
+
+    } catch (error) {
+        throw error;
+    }
+} 

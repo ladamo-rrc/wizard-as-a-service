@@ -15,7 +15,7 @@ import {
 } from "firebase-admin/firestore";
 
 
-const COLLECTION = "Wizards";
+const COLLECTION = "wizards";
 
 /**
  * Retrieves all items from Firestore
