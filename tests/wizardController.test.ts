@@ -5,6 +5,14 @@ import { HTTP_STATUS } from '../src/constants/httpConstants';
 
 // Mock the service module
 jest.mock('../src/api/v1/services/wizardsService');
+jest.mock('../src/api/v1/repositories/firestoreRepositories', () => ({
+    createDocument: jest.fn(),
+    getDocuments: jest.fn(),
+    getDocumentById: jest.fn(),
+    updateDocument: jest.fn(),
+    deleteDocument: jest.fn(),
+}));
+
 
 describe('Wizard Controller', () => {
   let mockReq: Partial<Request>;

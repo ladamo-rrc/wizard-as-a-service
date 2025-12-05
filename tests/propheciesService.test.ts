@@ -3,6 +3,13 @@ import * as firestoreRepository from "../src/api/v1/repositories/firestoreReposi
 
 // Mock the repository module
 jest.mock("../src/api/v1/repositories/firestoreRepositories");
+jest.mock("../src/api/v1/repositories/firestoreRepositories", () => ({
+    createDocument: jest.fn(),
+    getDocuments: jest.fn(),
+    getDocumentById: jest.fn(),
+    updateDocument: jest.fn(),
+    deleteDocument: jest.fn(),
+}));
 
 describe("Prophecy Service", () => {
     beforeEach(() => {
@@ -51,8 +58,9 @@ describe("Prophecy Service", () => {
         const mockProphecyData = {
             id: "prophecy1",
             message: "this is a prophecy ooooOOOooo",
-            type: "neutral",
-        };
+            type: "positive",
+        } as const
+
         const mockDocumentId = "prophecy1";
 
         (firestoreRepository.createDocument as jest.Mock).mockResolvedValue(
