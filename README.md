@@ -11,13 +11,16 @@ Lilly Adamo
 ### Current Features
 
 - Prophecy readings
+- lucky numbers for certain prophecies
 - Excuses 
 
 ### Planned Features
 
+- [ ] Front End component
 - [ ] Daily tarot pull
 - [ ] Daily global prophecies
 - [ ] Spellbook
 - [ ] Potion recipe book
 - [ ] Quests
+
 
