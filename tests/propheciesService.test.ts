@@ -3,18 +3,6 @@ import * as firestoreRepository from "../src/api/v1/repositories/firestoreReposi
 
 // Mock the repository module
 jest.mock("../src/api/v1/repositories/firestoreRepositories");
-jest.mock("../src/api/v1/repositories/firestoreRepositories", () => ({
-    createDocument: jest.fn(),
-    getDocuments: jest.fn(),
-    getDocumentById: jest.fn(),
-    updateDocument: jest.fn(),
-    deleteDocument: jest.fn(),
-}));
-
-describe("Prophecy Service", () => {
-    beforeEach(() => {
-        jest.clearAllMocks();
-    });
 
     it('should get all prophecies', async () => {
       // Arrange
@@ -113,4 +101,3 @@ describe("Prophecy Service", () => {
 
 
 
-});

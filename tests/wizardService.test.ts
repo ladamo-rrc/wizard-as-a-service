@@ -2,13 +2,7 @@ import * as wizardService from "../src/api/v1/services/wizardsService";
 import * as firestoreRepository from "../src/api/v1/repositories/firestoreRepositories";
 
 // Mock the repository module
-jest.mock("../src/api/v1/repositories/firestoreRepositories", () => ({
-    createDocument: jest.fn(),
-    getDocuments: jest.fn(),
-    getDocumentById: jest.fn(),
-    updateDocument: jest.fn(),
-    deleteDocument: jest.fn(),
-}));
+jest.mock("../src/api/v1/repositories/firestoreRepositories");
 
 describe("Wizard Service", () => {
     beforeEach(() => {
