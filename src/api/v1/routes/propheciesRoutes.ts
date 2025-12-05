@@ -18,7 +18,7 @@ const router: express.Router = express.Router();
  *       - bearerAuth: ["admin"]
  *     requestBody:
  *       required: true
- *       content:
+ *       content:   
  *         application/json:
  *           schema:
  *             type: object
@@ -40,12 +40,6 @@ const router: express.Router = express.Router();
  *           application/json:
  *             schema:
  *               $ref: '#/components/validations/Prophecy'
- *       '400':
- *         description: Invalid prophecy data
- *       '401':
- *         description: Unauthorized
- *       '403':
- *         description: Forbidden
  */
 
 router.post(
@@ -73,10 +67,6 @@ router.post(
  *               type: array
  *               items:
  *                 $ref: '#/components/validations/Prophecy'
- *       '401':
- *         description: Unauthorized
- *       '403':
- *         description: Forbidden
  */
 
 
@@ -107,8 +97,6 @@ router.get("/", authenticate,
  *           application/json:
  *             schema:
  *               $ref: '#/components/validations/Prophecy'
- *       '400':
- *         description: Invalid ID
  */
 
 // get by id
@@ -155,14 +143,6 @@ router.get("/:id", authenticate,
  *           application/json:
  *             schema:
  *               $ref: '#/components/validations/Prophecy'
- *       '400':
- *         description: Invalid update data
- *       '401':
- *         description: Unauthorized
- *       '403':
- *         description: Forbidden
- *       '404':
- *         description: Prophecy not found
  */
 
 // update 
@@ -190,14 +170,6 @@ router.put("/:id", authenticate,
  *     responses:
  *       '200':
  *         description: Prophecy deleted successfully
- *       '400':
- *         description: Invalid ID
- *       '401':
- *         description: Unauthorized
- *       '403':
- *         description: Forbidden
- *       '404':
- *         description: Prophecy not found
  */
 
 router.delete("/:id", authenticate,

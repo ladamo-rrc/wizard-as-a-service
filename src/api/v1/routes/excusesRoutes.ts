@@ -36,12 +36,6 @@ const router: express.Router = express.Router();
  *           application/json:
  *             schema:
  *               $ref: '#/components/validations/excuse'
- *       '400':
- *         description: Invalid excuse data
- *       '401':
- *         description: Unauthorized
- *       '403':
- *         description: Forbidden
  */
 
 router.post(
@@ -70,10 +64,6 @@ router.post(
  *               type: array
  *               items:
  *                 $ref: '#/components/validations/excuses'
- *       '401':
- *         description: Unauthorized
- *       '403':
- *         description: Forbidden
  */
 
 router.get("/", authenticate,
@@ -103,8 +93,6 @@ router.get("/", authenticate,
  *           application/json:
  *             schema:
  *               $ref: '#/components/validations/excuse'
- *       '400':
- *         description: Invalid ID
  */
 
 
@@ -148,14 +136,6 @@ router.get("/:id", authenticate,
  *           application/json:
  *             schema:
  *               $ref: '#/components/validations/excuse'
- *       '400':
- *         description: Invalid update data
- *       '401':
- *         description: Unauthorized
- *       '403':
- *         description: Forbidden
- *       '404':
- *         description: Prophecy not found
  */
 
 // update 
@@ -183,14 +163,6 @@ router.put("/:id", authenticate,
  *     responses:
  *       '200':
  *         description: excuse deleted successfully
- *       '400':
- *         description: Invalid ID
- *       '401':
- *         description: Unauthorized
- *       '403':
- *         description: Forbidden
- *       '404':
- *         description: Prophecy not found
  */
 
 
