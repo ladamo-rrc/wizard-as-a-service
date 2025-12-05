@@ -166,6 +166,7 @@ export const getProphecyFromWizard = async () => {
         if (getAllPropheciesFromDB.empty) {
             throw new Error ("The crystal ball is all out of magic. Please try again later.")
         }
+        
         // convert firebase docs into a js object
 
         const wizards: Wizards[] = getAllWizardsFromDB.docs.map(doc => ({
