@@ -5,6 +5,7 @@ import type { Excuses } from "../models/excusesModel";
 import { successResponse } from "../models/responseModel";
 import { excuses } from "../../../data/excuses";
 
+
 /**
  * Retrieves all excuses
  * @param req - Express request object
@@ -17,11 +18,9 @@ export const getAllExcuses = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  try {
-    const excuses: Excuses[] = await excusesService.getAllExcuses();
-    res.status(HTTP_STATUS.OK).json(
-      successResponse(excuses, "excuses retrieved successfully")
-    );
+    try {
+    const result = await excusesService.conjureRandomExcuse();
+    res.status(HTTP_STATUS.OK).json(result);
   } catch (error) {
     next(error);
   }

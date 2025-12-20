@@ -5,11 +5,14 @@ import isAuthorized from "../middleware/authorize";
 
 const router: express.Router = express.Router();
 
-router.post(
-    "/setCustomClaims",
-    authenticate,
-    isAuthorized({ hasRole: ["admin"] }),
-    setCustomClaims
-);
+router.post("/setCustomClaims", authenticate, setCustomClaims);
+
+
+// router.post(
+//     "/setCustomClaims",
+//     authenticate,
+//     isAuthorized({ hasRole: ["admin"] }),
+//     setCustomClaims
+// );
 
 export default router;

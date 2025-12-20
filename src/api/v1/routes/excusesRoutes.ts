@@ -10,35 +10,38 @@ const router: express.Router = express.Router();
 
 /**
  * @openapi
- * /endpoint-path: create
- *   http-method:
- *     summary: creates a new user 
- *     tags: [Category]
- *     parameters:
- *       - name: parameter-name
- *         in: query|path|header
- *         required: true|false
- *         schema:
- *           type: string|number|boolean
+ * /excuses:
+ *   post:
+ *     summary: Create a new excuse
+ *     tags: [Excuses]
+ *     security:
+ *       - bearerAuth: ["admin"]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/validations/createExcuse'
+ *             type: object
+ *             required:
+ *               - message
+ *               - type
+ *             properties:
+ *               excuse:
+ *                 type: string
+ *                 example: "can't talk right now, I'm out on a quest"
  *     responses:
- *       '200':
- *         description: Successfully created excuse
+ *       '201':
+ *         description: excuse created successfully
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/validations/ResponseSchema'
+ *               $ref: '#/components/validations/excuse'
  */
 
 router.post(
     "/",
     authenticate,
-    isAuthorized({ hasRole: ["user"] }),
+    isAuthorized({ hasRole: ["admin"] }),
     validateRequest(excusesSchema.create),
     excusesController.createExcuse
 );
@@ -46,134 +49,125 @@ router.post(
 
 /**
  * @openapi
- * /endpoint-path: get all
- *   http-method:
- *     summary: Gets all excuses
- *     tags: [Category]
- *     parameters:
- *       - name: parameter-name
- *         in: query|path|header
- *         required: true|false
- *         schema:
- *           type: string|number|boolean
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/validations/'
+ * /excuses:
+ *   get:
+ *     summary: Retrieve all excuses
+ *     tags: [excuses]
+ *     security:
+ *       - bearerAuth: ["admin", "user"]
  *     responses:
  *       '200':
  *         description: Successfully retrieved excuses
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/validations/ResponseSchema'
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/validations/excuses'
  */
 
 router.get("/", authenticate,
-    isAuthorized({ hasRole: ["officer", "manager"] }),
+    isAuthorized({ hasRole: ["admin", "user"] }),
     excusesController.getAllExcuses
 );
 
 /**
  * @openapi
- * /endpoint-path: get by id
- *   http-method:
- *     summary: Get excuses by id
- *     tags: [Category]
+ * /excuses/{id}:
+ *   get:
+ *     summary: Retrieve an excuse by its ID
+ *     tags: [excuses]
+ *     security:
+ *       - bearerAuth: ["admin"]
  *     parameters:
- *       - name: parameter-name
- *         in: query|path|header
- *         required: true|false
+ *       - name: id
+ *         in: path
+ *         required: true
  *         schema:
- *           type: string|number|boolean
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/validations/getById'
+ *           type: string
+ *         description: The excuse
  *     responses:
  *       '200':
- *         description: Successfully retrieved excuse by id
+ *         description: excuse retrieved successfully
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/validations/ResponseSchema'
+ *               $ref: '#/components/validations/excuse'
  */
+
 
 // get by id
 router.get("/:id", authenticate,
-    isAuthorized({hasRole: ["officer", "manager"] }),
+    isAuthorized({hasRole: ["admin"] }),
     validateRequest(excusesSchema.getById),
     excusesController.getExcuseById
 );
 
 /**
  * @openapi
- * /endpoint-path: update
- *   http-method:
- *     summary: Updates an excuse
- *     tags: [Category]
+ * /excuses/{id}:
+ *   put:
+ *     summary: Update an existing excuse
+ *     tags: [excuses]
+ *     security:
+ *       - bearerAuth: ["admin"]
  *     parameters:
- *       - name: parameter-name
- *         in: query|path|header
- *         required: true|false
+ *       - name: id
+ *         in: path
+ *         required: true
  *         schema:
- *           type: string|number|boolean
+ *           type: string
+ *         description: The excuse ID
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/validations/updateExcuse'
+ *             type: object
+ *             required:
+ *               - excuse
+ *             properties:
+ *               excuse:
+ *                 type: string
  *     responses:
  *       '200':
- *         description: Successfully updated excuse
+ *         description: excuse updated successfully
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/validations/ResponseSchema'
+ *               $ref: '#/components/validations/excuse'
  */
 
 // update 
 router.put("/:id", authenticate,
-    isAuthorized({hasRole: ["manager"] }),
+    isAuthorized({hasRole: ["admin"] }),
     validateRequest(excusesSchema.update),
     excusesController.updateExcuse
 );
 
 /**
  * @openapi
- * /endpoint-path: delete
- *   http-method:
- *     summary: Deletes an excuse
- *     tags: [Category]
+ * /excuses/{id}:
+ *   delete:
+ *     summary: Delete an excuse
+ *     tags: [excuse]
+ *     security:
+ *       - bearerAuth: ['admin']
  *     parameters:
- *       - name: parameter-name
- *         in: query|path|header
- *         required: true|false
+ *       - name: id
+ *         in: path
+ *         required: true
  *         schema:
- *           type: string|number|boolean
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/validations/deleteExcuse'
+ *           type: string
+ *         description: The excuse ID
  *     responses:
  *       '200':
- *         description: Successfully deleted excuse
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/validations/ResponseSchema'
+ *         description: excuse deleted successfully
  */
 
 
 router.delete("/:id", authenticate,
-    isAuthorized({hasRole: ["manager"] }),
+    isAuthorized({hasRole: ["admin",] }),
     validateRequest(excusesSchema.delete),
     excusesController.deleteExcuse
 );

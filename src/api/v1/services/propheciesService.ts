@@ -1,4 +1,5 @@
 import { Prophecy } from "../models/propheciesModel";
+import { Wizards } from "../models/wizardsModel";
 import {
     createDocument,
     getDocuments,
@@ -64,23 +65,24 @@ export const getProphecyById = async (id: string): Promise<Prophecy> => {
  */
 
 export const createProphecy = async (prophecyData: {
-    id: string;
+    id: string; 
     message: string;
-    type: string;
+    type: "positive" | "negative" | "neutral";
 }): Promise<Prophecy> => {
     try {
-        const newProphecyData = {
-            ...prophecyData,
+        const newProphecyData: Prophecy = {
+            id: prophecyData.id,
+            message: prophecyData.message,
+            type: prophecyData.type,
         };
 
-        const id = await createDocument<Prophecy>(COLLECTION, newProphecyData, prophecyData.id);
+        await createDocument<Prophecy>(COLLECTION, newProphecyData, prophecyData.id);
 
-        return { ...newProphecyData, id } as Prophecy;
+        return newProphecyData;
     } catch (error) {
         throw error;
     }
 };
-
 /**
  * Updates an existing Prophecy in Firestore
  * @param id - The ID of the item to update
@@ -128,3 +130,93 @@ export const deleteProphecy = async (id: string): Promise<void> => {
         throw error;
     }
 };
+
+
+// Randomizataion Logic 
+
+// gives a random number
+
+function getRandomInt(min: number, max: number): number {
+  min = Math.ceil(min); 
+  max = Math.floor(max); 
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function generateFortuneCookieNumbers(count: number = 6, min: number = 1, max: number = 99): number[] {
+    const luckyNumbers: number[] = [];
+
+    for (let i = 0; i < count; i++) {
+        luckyNumbers.push(getRandomInt(min, max));
+    }
+
+    return luckyNumbers;
+}
+
+// Random prohpecy with wizard function
+// https://firebase.google.com/docs/firestore/query-data/get-data
+export const getProphecyFromWizard = async () => {
+    try {
+        const getAllWizardsFromDB = await getDocuments("wizards");
+        
+        if (getAllWizardsFromDB.empty) {
+            throw new Error ("All the wizards seem to be on break right now. Please try again later.")
+        }
+        const getAllPropheciesFromDB = await getDocuments("prophecies");
+
+        if (getAllPropheciesFromDB.empty) {
+            throw new Error ("The crystal ball is all out of magic. Please try again later.")
+        }
+        
+        // convert firebase docs into a js object
+
+        const wizards: Wizards[] = getAllWizardsFromDB.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data() 
+        })) as Wizards[];
+
+        const prophecies: Prophecy[] = getAllPropheciesFromDB.docs.map(doc => ({
+            id: doc.id, 
+            ...doc.data()
+        })) as Prophecy[];
+
+        //randomize the wizard
+        const getRandomWizard = getRandomInt(0, wizards.length - 1 );
+        const randomWizard = wizards[getRandomWizard];
+
+        //randomize the prophecy
+        const getRandomProphecy = getRandomInt(0, prophecies.length -1);
+        const randomProphecy = prophecies[getRandomProphecy];
+
+        let prophecyReading: string[];
+
+        let luckyNumbers: number[] | undefined = undefined;
+
+        if(randomProphecy.type === "positive"){
+            prophecyReading = randomWizard.positiveResponses; 
+        } else if (randomProphecy.type === "negative") {
+            prophecyReading = randomWizard.negativeResponses;
+        } else {
+            prophecyReading = [];
+        }
+
+        if(randomProphecy.type === "fortune-cookie") {
+            luckyNumbers = generateFortuneCookieNumbers();
+        }
+
+        const responseArrayLength = prophecyReading.length;
+        // randomize the wizard response 
+        const randomResponseIndex = getRandomInt(0, responseArrayLength - 1);
+        const wizardResponse = prophecyReading[randomResponseIndex];
+
+        return {
+            wizard: randomWizard.name,
+            prophecy: randomProphecy.message,
+            response: wizardResponse,
+            luckyNumbers,
+        }
+
+    } catch (error) {
+        throw error;
+    }
+} 
+
